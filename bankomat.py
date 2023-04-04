@@ -22,7 +22,7 @@ class Bankomat:
                 "omsättning": omsättningSEK[index],
             }
             index += 1
-            
+
         index = 0
         for period in perioderAnnan: 
             self.transaktionsDataAnnan[period] = {
