@@ -1,5 +1,5 @@
 class Bankomat: 
-    def __init__(self, automatId: int, address: str, postkod: int, postort: str, kommun: str, län: str, ärUte: bool, perioderSEK: list[int], transaktionerSEK: list[int], omsättningSEK: list[int], perioderAnnan: list[int], transaktionerAnnan: list[int], omsättningAnnan: list[int]) -> None:
+    def __init__(self, automatId: str, address: str, postkod: str, postort: str, kommun: str, län: str, ärUte: bool) -> None:
         
         self.id = automatId
 
@@ -12,24 +12,16 @@ class Bankomat:
         }
 
         self.ärUte = ärUte
-        self.transaktionsDataSEK = {}
-        self.transaktionsDataAnnan = {}
+        self.transaktionsDataSEK = []
+        self.transaktionsDataAnnan = []
 
-        index = 0
-        for period in perioderSEK: 
-            self.transaktionsDataSEK[period] = {
-                "antalTransaktioner": transaktionerSEK[index],
-                "omsättning": omsättningSEK[index],
-            }
-            index += 1
-
-        index = 0
-        for period in perioderAnnan: 
-            self.transaktionsDataAnnan[period] = {
-                "antalTransaktioner": transaktionerAnnan[index],
-                "omsättning": omsättningAnnan[index],
-            }
-            index += 1
-
-    def hämtaPopulation(self) -> None:
-        pass
+    def __str__(self) -> str:
+        return f"Bankomat med id {self.id}, som finns på addressen {self.geographicalData['address']}, i {self.geographicalData['kommun']} kommun. Det finns {len(self.transaktionsDataSEK) + len(self.transaktionsDataAnnan)} transaktionsadata registrerade. ÄrUte = {self.ärUte}"
+    
+    def läggTillTransaktion(self, månad:str, antalTransaktioner:int, valuta:str, omsättning:int): 
+        if valuta == "SEK":
+            self.transaktionsDataSEK.append({
+                "månad": månad,
+                "antalTransaktioner": antalTransaktioner,
+                "omsättning": omsättning
+            })

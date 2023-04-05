@@ -1,9 +1,12 @@
 from collections import defaultdict
+from bankomat import Bankomat
 
 from kommun import Kommun
 
 class DataParser:
-    def __init__(self):
+
+
+    def laddaKommuner(self):
 
         fn = "information-files/befolkningsdata/2014M1-2018M9.csv"
         fk = "information-files/befolkningsdata/2018M10-2023M1.csv"
@@ -50,3 +53,38 @@ class DataParser:
         for kommun in kommunerd: 
             kommun = Kommun(namn = kommunerd[kommun]["namn"], id = kommunerd[kommun]["id"], data = kommunerd[kommun]["data"])
             self.kommuner.append(kommun)
+
+    def laddaBankomater(self): 
+
+        fn = "information-files/bankomatdata/KTH Uttag och insättningar 201401-202301.csv"
+
+        with open(fn, encoding="utf-8") as bankomatFil:
+            bankomatRader = bankomatFil.readlines()
+
+        bankomatRaderUppdelade: list[list[str]] = []
+
+        for bankomatRad in bankomatRader[1:]: 
+            bankomatRaderUppdelade.append(bankomatRad.split(";"))
+
+        index = -1
+
+        nuvarandeId = ""
+
+        bankomatLista: list[list[str]] = []
+        self.bankomater: list[Bankomat] = []
+
+        for uppdeladBankomatRad in bankomatRaderUppdelade: 
+            if nuvarandeId == uppdeladBankomatRad[0]:
+                bankomatLista[index].append(uppdeladBankomatRad)
+                self.bankomater[index].läggTillTransaktion(uppdeladBankomatRad[7], int(uppdeladBankomatRad[10].replace(" ", "")), uppdeladBankomatRad[9], int(uppdeladBankomatRad[11].replace(" ", "")))
+            else: 
+                nuvarandeId = uppdeladBankomatRad[0]
+                bankomatLista.append([uppdeladBankomatRad])
+                if uppdeladBankomatRad[6] == "Utomhus":
+                    ärUte = True
+                else: ärUte = False
+                self.bankomater.append(Bankomat(uppdeladBankomatRad[0], uppdeladBankomatRad[1], uppdeladBankomatRad[2], uppdeladBankomatRad[3], uppdeladBankomatRad[4], uppdeladBankomatRad[5], ärUte))
+                index += 1
+                self.bankomater[index].läggTillTransaktion(uppdeladBankomatRad[7], int(uppdeladBankomatRad[10].replace(" ", "")), uppdeladBankomatRad[9], int(uppdeladBankomatRad[11].replace(" ", "")))
+        
+        
