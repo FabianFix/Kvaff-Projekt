@@ -12,7 +12,7 @@ Av:
 
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">🤓 Klicka här för en beskrivande video 🤓</a>
 
-<a href="https://canvas.kth.se/courses/37965/files/folder/Projektarbete/Projekt%202?preview=6460631">
+<a href="https://canvas.kth.se/courses/37965/discussion_topics/306943">
 🥰 Här är en länk till powerpointen som förklarar frågeställningarna 🥰
 </a>
 
