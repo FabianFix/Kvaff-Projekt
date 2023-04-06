@@ -52,6 +52,7 @@ class DataParser:
 
         for kommun in kommunerd: 
             kommun = Kommun(namn = kommunerd[kommun]["namn"], id = kommunerd[kommun]["id"], data = kommunerd[kommun]["data"])
+            kommun.beräknaSnittålder()
             self.kommuner.append(kommun)
 
     def laddaBankomater(self): 

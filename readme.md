@@ -23,6 +23,6 @@ Av:
 
 <h2>Frågeställning: 🤪</h2>
 
-Frågeställning: Finns det regionala mönster gällande kontanthantering?
+Frågeställning: Finns det regionala demografiska mönster gällande kontanthantering?
 Delfrågeställning: Är mönstrena gällande kontanhantering korrelerarade till någon regional demografi?
 
