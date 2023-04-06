@@ -13,7 +13,7 @@ Av:
 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">🤓 Klicka här för en beskrivande video 🤓</a>
 
 <a href="https://canvas.kth.se/courses/37965/discussion_topics/306943">
-🥰 Här är en länk till powerpointen som förklarar frågeställningarna 🥰
+🥰 Här är en länk till diskussionen där man kan hitta powerpointen som förklarar frågeställningarna 🥰
 </a>
 
 <h2>Frågeställning: 🤪</h2>
