@@ -20,5 +20,3 @@ Av:
 </a>
 
 <h2>Frågeställning: 🤪</h2>
-
-https://kth-my.sharepoint.com/:w:/g/personal/lkasper_ug_kth_se/EQqFLm5Z8KFPudpk8QaXfMMBzWS2Dg05UD83MlHBAfdDgw?e=weVYUz
