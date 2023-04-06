@@ -23,6 +23,6 @@ Av:
 
 <h2>Frågeställning: 🤪</h2>
 
-Frågeställning: Finns det regionala demografiska mönster gällande kontanthantering?
+Frågeställning: Finns det regionala demografiska mönster gällande kontanthantering? Hur mycket spelar befolkningstätheten roll flr kontanthantering? Hur stor roll spelar demografins ålder? 
 Delfrågeställning: Är mönstrena gällande kontanhantering korrelerarade till någon regional demografi?
 
