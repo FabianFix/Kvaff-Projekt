@@ -23,4 +23,6 @@ Av:
 
 <h2>Frågeställning: 🤪</h2>
 
-1. Relation mellan bankuttag och åldersdemografi
+Frågeställning: Finns det regionala mönster gällande kontanthantering?
+Delfrågeställning: Är mönstrena gällande kontanhantering korrelerarade till någon regional demografi?
+
