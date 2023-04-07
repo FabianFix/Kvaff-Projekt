@@ -50,12 +50,15 @@ class AnalysModeller:
 
         for bankomat in self.data.bankomater:
             try:
-                omsättningar.append(bankomat.genomsnittligOmsättning)
+                omsättningar.append(bankomat.genomsnittligOmsättning / 1000)
             except: 
                 print(bankomat)
             befolkningar.append([kommun.data[kommun.sistaNyckeln]["total"] for kommun in self.data.kommuner if kommun.namn == bankomat.geographicalData["kommun"]][0])
     
         plt.scatter(befolkningar, omsättningar)
+        plt.title("Scatter plot av omsättning / invånare")
+        plt.xlabel("Antal invånare")
+        plt.ylabel("Omsättning i tkr per bankomat")
         
 
     def scatterPlotOmsättningPerInvånarePerBankomat(self):
@@ -67,10 +70,12 @@ class AnalysModeller:
 
         for bankomat in self.data.bankomater:
             try:
-                omsättningar.append(bankomat.genomsnittligOmsättning)
+                omsättningar.append(bankomat.genomsnittligOmsättning / 1000)
             except: 
                 print(bankomat)
             invånarePerBankomat.append([kommun.data[kommun.sistaNyckeln]["total"] / kommun.antalBankomater for kommun in self.data.kommuner if kommun.namn == bankomat.geographicalData["kommun"]][0])
 
         plt.scatter(invånarePerBankomat, omsättningar)
-        pass
+        plt.title("Scatter plot av omsättning / (invånare / bankomat)")
+        plt.xlabel("Antal invånare per bankomat")
+        plt.ylabel("Omsättning i tkr per bankomat")
