@@ -48,7 +48,7 @@ class DataParser:
             for m, md in v["data"].items():
                 md["total"] = sum(md.values())
 
-        self.kommuner = []
+        self.kommuner:list[Kommun] = []
 
         for kommun in kommunerd: 
             kommun = Kommun(namn = kommunerd[kommun]["namn"], id = kommunerd[kommun]["id"], data = kommunerd[kommun]["data"])
@@ -79,6 +79,8 @@ class DataParser:
                 bankomatLista[index].append(uppdeladBankomatRad)
                 self.bankomater[index].läggTillTransaktion(uppdeladBankomatRad[7], int(uppdeladBankomatRad[10].replace(" ", "")), uppdeladBankomatRad[9], int(uppdeladBankomatRad[11].replace(" ", "")))
             else: 
+                if index != -1:
+                    self.bankomater[index-1].beräknaGenomsnittligOmsättning()
                 nuvarandeId = uppdeladBankomatRad[0]
                 bankomatLista.append([uppdeladBankomatRad])
                 if uppdeladBankomatRad[6] == "Utomhus":
@@ -87,5 +89,7 @@ class DataParser:
                 self.bankomater.append(Bankomat(uppdeladBankomatRad[0], uppdeladBankomatRad[1], uppdeladBankomatRad[2], uppdeladBankomatRad[3], uppdeladBankomatRad[4], uppdeladBankomatRad[5], ärUte))
                 index += 1
                 self.bankomater[index].läggTillTransaktion(uppdeladBankomatRad[7], int(uppdeladBankomatRad[10].replace(" ", "")), uppdeladBankomatRad[9], int(uppdeladBankomatRad[11].replace(" ", "")))
-        
+        else: 
+            self.bankomater[index-1].beräknaGenomsnittligOmsättning()
+            self.bankomater[index].beräknaGenomsnittligOmsättning()
         

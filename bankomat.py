@@ -12,9 +12,9 @@ class Bankomat:
         }
 
         self.ärUte = ärUte
-        self.transaktionsDataSEK = []
-        self.transaktionsDataEUR = []
-        self.transaktionsDataUSD = []
+        self.transaktionsDataSEK: list[dict] = []
+        self.transaktionsDataEUR: list[dict] = []
+        self.transaktionsDataUSD: list[dict] = []
 
     def __str__(self) -> str:
         return f"Bankomat med id {self.id}, som finns på addressen {self.geographicalData['address']}, i {self.geographicalData['kommun']} kommun. Det finns {len(self.transaktionsDataSEK) + len(self.transaktionsDataUSD) + len(self.transaktionsDataEUR)} transaktionsadata registrerade. ÄrUte = {self.ärUte}"
@@ -40,3 +40,13 @@ class Bankomat:
                 "antalTransaktioner": antalTransaktioner,
                 "omsättning": omsättning
             })
+
+    def beräknaGenomsnittligOmsättning(self): 
+        self.totalOmsättning = 0
+        self.antalMånader = max([len(transaktionsData) for transaktionsData in [self.transaktionsDataSEK + self.transaktionsDataEUR + self.transaktionsDataUSD]])
+
+        for transaktion in self.transaktionsDataSEK + self.transaktionsDataEUR + self.transaktionsDataUSD:
+            self.totalOmsättning += transaktion["omsättning"]
+
+        self.genomsnittligOmsättning = round(self.totalOmsättning / self.antalMånader)
+        
