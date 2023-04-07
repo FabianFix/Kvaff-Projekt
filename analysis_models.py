@@ -22,9 +22,9 @@ class AnalysModeller:
 
         kommun = [kommun for kommun in self.data.kommuner if kommun.namn == slumpmässigBankomat.geographicalData["kommun"]][0]
 
-        kommun.bankomaterIKommunen = [bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["kommun"] == kommun.namn]
+        bankomaterIKommunen = [bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["kommun"] == kommun.namn]
 
-        antalBankomater = len(kommun.bankomaterIKommunen)
+        antalBankomater = len(bankomaterIKommunen)
 
         månader = []
         omsättningar = []
@@ -59,4 +59,18 @@ class AnalysModeller:
         
 
     def scatterPlotOmsättningPerInvånarePerBankomat(self):
+        omsättningar: list[int] = []
+        invånarePerBankomat: list[int] = []
+
+        for kommun in self.data.kommuner:
+            kommun.antalBankomater = len([bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["kommun"] == kommun.namn])
+
+        for bankomat in self.data.bankomater:
+            try:
+                omsättningar.append(bankomat.genomsnittligOmsättning)
+            except: 
+                print(bankomat)
+            invånarePerBankomat.append([kommun.data[kommun.sistaNyckeln]["total"] / kommun.antalBankomater for kommun in self.data.kommuner if kommun.namn == bankomat.geographicalData["kommun"]][0])
+
+        plt.scatter(invånarePerBankomat, omsättningar)
         pass
