@@ -107,7 +107,7 @@ class AnalysModeller:
         omsättningarPerInvånare = []
         befolkningstätheter = []
 
-        for kommun in self.data.kommuner: 
+        for kommun in [kommun for kommun in self.data.kommuner if kommun.namn not in ["Sundbyberg", "Stockholm", "Solna"]]: 
             for bankomat in [bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["kommun"] == kommun.namn]:
                 kommun.totalOmsättning += bankomat.genomsnittligOmsättning
             
