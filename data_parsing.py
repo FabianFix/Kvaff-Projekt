@@ -49,7 +49,7 @@ class DataParser:
                 md["total"] = sum(md.values())
 
 
-        with open("information-files/befolkningsdata/Befolkningstätheter.csv", "r") as täthetsFil: 
+        with open("information-files/befolkningsdata/Befolkningstätheter.csv", "r", encoding="utf-8") as täthetsFil: 
             befolkningstätheterText = täthetsFil.readlines()
 
         befolkningsTätheter = defaultdict(dict)
