@@ -6,6 +6,9 @@ class Kommun:
         self.antalBankomater = 0
         self.totalOmsättning = 0
         self.omsättningPerBankomat = 0
+        self.omsättningPerInvånare = 0
+        self.snittTransaktionsAntal = 0
+        self.totalTransaktionsAntal = 0
 
     def beräknaSnittålder(self):
         self.sistaNyckeln = list(self.data.keys())[-1]
@@ -20,6 +23,12 @@ class Kommun:
 
     def sättInBefolkningsTäthet(self, befolkningstätheter: dict[int, float]):
         self.befolkningstätheter = befolkningstätheter
+
+    def ärTät(self):
+        if self.befolkningstätheter[2022] >= 50:
+            self.kommunÄrStor = True
+        else: 
+            self.kommunÄrStor = False
 
     def __str__(self) -> str:
         return f"Kommunen {self.namn} har id {self.id} och har som senast totalt {self.data['2023M01']['total']} människor som bodde i kommunen. Snittåldern är {round(self.snittÅlder)} år, samt hade år 2017 en befolkningstäthet på: {round(self.befolkningstätheter[2017])} människor/km^2"

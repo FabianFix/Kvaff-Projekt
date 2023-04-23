@@ -50,3 +50,11 @@ class Bankomat:
 
         self.genomsnittligOmsättning = round(self.totalOmsättning / self.antalMånader)
         
+    def beräknaGenomsnittligtTransaktionsantal(self): 
+        self.transaktioner = 0
+        self.antalMånader = max([len(transaktionsData) for transaktionsData in [self.transaktionsDataSEK + self.transaktionsDataEUR + self.transaktionsDataUSD]])
+
+        for transaktion in self.transaktionsDataSEK + self.transaktionsDataEUR + self.transaktionsDataUSD:
+            self.transaktioner += transaktion["antalTransaktioner"]
+
+        self.genomsnittligaTransaktioner = round(self.transaktioner / self.antalMånader)

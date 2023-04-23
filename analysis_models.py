@@ -87,10 +87,13 @@ class AnalysModeller:
 
         for kommun in self.data.kommuner: 
             for bankomat in [bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["kommun"] == kommun.namn]:
+                bankomat.beräknaGenomsnittligtTransaktionsantal()
                 kommun.totalOmsättning += bankomat.genomsnittligOmsättning
+                kommun.totalTransaktionsAntal += bankomat.genomsnittligaTransaktioner
             
             try:
                 kommun.omsättningPerBankomat = kommun.totalOmsättning / kommun.antalBankomater
+                kommun.snittTransaktionsAntal = kommun.totalTransaktionsAntal / kommun.antalBankomater
                 befolkningstätheter.append(kommun.befolkningstätheter[2022])
                 print(kommun.namn, kommun.omsättningPerBankomat, kommun.befolkningstätheter[2022])
                 omsättningarPerBankomatPerInvånare.append(kommun.omsättningPerBankomat / list(kommun.data.values())[-1]["total"])
@@ -107,13 +110,14 @@ class AnalysModeller:
         omsättningarPerInvånare = []
         befolkningstätheter = []
 
-        for kommun in [kommun for kommun in self.data.kommuner if kommun.namn not in ["Sundbyberg", "Stockholm", "Solna"]]: 
+        for kommun in [kommun for kommun in self.data.kommuner]: 
             for bankomat in [bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["kommun"] == kommun.namn]:
                 kommun.totalOmsättning += bankomat.genomsnittligOmsättning
             
             try:
                 befolkningstätheter.append(kommun.befolkningstätheter[2022])
                 omsättningarPerInvånare.append(kommun.totalOmsättning / list(kommun.data.values())[-1]["total"])
+                kommun.omsättningPerInvånare = kommun.totalOmsättning / list(kommun.data.values())[-1]["total"]
                 if kommun.totalOmsättning / list(kommun.data.values())[-1]["total"] > 1400 or kommun.totalOmsättning / list(kommun.data.values())[-1]["total"] < 400:
                     print(kommun.namn, kommun.totalOmsättning / list(kommun.data.values())[-1]["total"], "sek/capita", kommun.befolkningstätheter[2022])
             except: 
