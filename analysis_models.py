@@ -79,3 +79,49 @@ class AnalysModeller:
         plt.title("Scatter plot av omsättning / (invånare / bankomat)")
         plt.xlabel("Antal invånare per bankomat")
         plt.ylabel("Omsättning i tkr per bankomat")
+
+    def scatterPlotOmsättningPerAutomatMotBefolkningstäthet(self):
+
+        omsättningarPerBankomatPerInvånare = []
+        befolkningstätheter = []
+
+        for kommun in self.data.kommuner: 
+            for bankomat in [bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["kommun"] == kommun.namn]:
+                kommun.totalOmsättning += bankomat.genomsnittligOmsättning
+            
+            try:
+                kommun.omsättningPerBankomat = kommun.totalOmsättning / kommun.antalBankomater
+                befolkningstätheter.append(kommun.befolkningstätheter[2022])
+                print(kommun.namn, kommun.omsättningPerBankomat, kommun.befolkningstätheter[2022])
+                omsättningarPerBankomatPerInvånare.append(kommun.omsättningPerBankomat / list(kommun.data.values())[-1]["total"])
+            except: 
+                kommun.omsättningPerBankomat = kommun.totalOmsättning / kommun.antalBankomater
+
+        plt.scatter(omsättningarPerBankomatPerInvånare, befolkningstätheter)
+        plt.title("Scatter plot av omsättning / befolkningstäthet")
+        plt.xlabel("Omsättning Per Bankomat Per Invånare")
+        plt.ylabel("Befolkningstäthet i människor / km^2")
+        
+    def scatterPlotOmsättningPerInvånareMotBefolkningstäthet(self):
+
+        omsättningarPerInvånare = []
+        befolkningstätheter = []
+
+        for kommun in self.data.kommuner: 
+            for bankomat in [bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["kommun"] == kommun.namn]:
+                kommun.totalOmsättning += bankomat.genomsnittligOmsättning
+            
+            try:
+                befolkningstätheter.append(kommun.befolkningstätheter[2022])
+                omsättningarPerInvånare.append(kommun.totalOmsättning / list(kommun.data.values())[-1]["total"])
+                if kommun.totalOmsättning / list(kommun.data.values())[-1]["total"] > 1400 or kommun.totalOmsättning / list(kommun.data.values())[-1]["total"] < 400:
+                    print(kommun.namn, kommun.totalOmsättning / list(kommun.data.values())[-1]["total"], "sek/capita", kommun.befolkningstätheter[2022])
+            except: 
+                kommun.omsättningPerBankomat = kommun.totalOmsättning / kommun.antalBankomater
+
+        plt.scatter(omsättningarPerInvånare, befolkningstätheter)
+        plt.title("Scatter plot av omsättning / befolkningstäthet")
+        plt.xlabel("Omsättning Per Invånare")
+        plt.ylabel("Befolkningstäthet i människor / km^2")
+        
+            

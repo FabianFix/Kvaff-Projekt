@@ -4,6 +4,8 @@ class Kommun:
         self.id = id
         self.data = data
         self.antalBankomater = 0
+        self.totalOmsättning = 0
+        self.omsättningPerBankomat = 0
 
     def beräknaSnittålder(self):
         self.sistaNyckeln = list(self.data.keys())[-1]
