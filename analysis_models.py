@@ -9,7 +9,7 @@ class AnalysModeller:
 
     def slumpmässigBankomatOmsättning(self):
 
-        bankomaterIFarsta = [bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["postort"] == "Farsta"]
+        #bankomaterIFarsta = [bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["postort"] == "Farsta"]
 
         slumpmässigBankomat = self.data.bankomater[randint(0, len(self.data.bankomater)-1)]
 

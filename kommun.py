@@ -16,6 +16,10 @@ class Kommun:
         
         self.snittÅlder = round(totalÅlder / self.data[self.sistaNyckeln]["total"])
 
+    def sättInBefolkningsTäthet(self, befolkningstätheter: list[int]):
+        analysÅr = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
+        befolkningstäthetsTuples = [(år, befolkningstätheter[i]) for år, i in enumerate(analysÅr)]
+        self.befolkningstäthet = dict(befolkningstäthetsTuples)
 
     def __str__(self) -> str:
         return f"Kommunen {self.namn} har id {self.id} och har som senast totalt {self.data['2023M01']['total']} människor som bodde i kommunen. Snittåldern är {round(self.snittÅlder)} år"
