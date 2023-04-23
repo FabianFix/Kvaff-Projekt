@@ -9,7 +9,7 @@ month = "2022M01"
 year = int(month[0:4])
 
 obj_list = []
-pandan = {{
+pandan = {
             "Befolkning": [],
             "Total Omsättning": [],
             "Omsättning per Invånare": [],
@@ -19,7 +19,7 @@ pandan = {{
             "Antal Transaktioner": [],
             "Antal Transaktioner Per Bankomat": [],
             "Genomsnittlig Transaktionsstorlek": []
-        } }
+        }
 
 for kommun in data.kommuner:
     try:
