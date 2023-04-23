@@ -48,12 +48,36 @@ class DataParser:
             for m, md in v["data"].items():
                 md["total"] = sum(md.values())
 
+
+        with open("information-files/befolkningsdata/Befolkningstätheter.csv", "r") as täthetsFil: 
+            befolkningstätheterText = täthetsFil.readlines()
+
+        befolkningsTätheter = defaultdict(dict)
+
+        for befolkningsTäthetsText in befolkningstätheterText:
+            befolkningstäthetsLista = befolkningsTäthetsText.split(";")
+            befolkningsTäthetsDict = {
+                2014: float(befolkningstäthetsLista[1]),
+                2015: float(befolkningstäthetsLista[2]),
+                2016: float(befolkningstäthetsLista[3]),
+                2017: float(befolkningstäthetsLista[4]),
+                2018: float(befolkningstäthetsLista[5]),
+                2019: float(befolkningstäthetsLista[6]),
+                2020: float(befolkningstäthetsLista[7]),
+                2021: float(befolkningstäthetsLista[8]),
+                2022: float(befolkningstäthetsLista[9]),
+            }
+            befolkningsTätheter[befolkningstäthetsLista[0][5:]] = befolkningsTäthetsDict
+
         self.kommuner:list[Kommun] = []
 
         for kommun in kommunerd: 
             kommun = Kommun(namn = kommunerd[kommun]["namn"], id = kommunerd[kommun]["id"], data = kommunerd[kommun]["data"])
             kommun.beräknaSnittålder()
+            kommun.sättInBefolkningsTäthet(befolkningsTätheter[kommun.namn])
             self.kommuner.append(kommun)
+
+
 
     def laddaBankomater(self): 
 
