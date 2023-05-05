@@ -9,6 +9,17 @@ class Kommun:
         self.omsättningPerInvånare = 0
         self.snittTransaktionsAntal = 0
         self.totalTransaktionsAntal = 0
+        self.utrikesfödda = {
+            2014: 0,
+            2015: 0,
+            2016: 0,
+            2017: 0,
+            2018: 0,
+            2019: 0,
+            2020: 0,
+            2021: 0,
+            2022: 0
+        }
 
     def beräknaSnittålder(self):
         self.sistaNyckeln = list(self.data.keys())[-1]
@@ -30,5 +41,8 @@ class Kommun:
         else: 
             self.kommunÄrStor = False
 
+    def sättUtrikesfödda(self, år, antal):
+        self.utrikesfödda[år] += antal
+
     def __str__(self) -> str:
-        return f"Kommunen {self.namn} har id {self.id} och har som senast totalt {self.data['2023M01']['total']} människor som bodde i kommunen. Snittåldern är {round(self.snittÅlder)} år, samt hade år 2017 en befolkningstäthet på: {round(self.befolkningstätheter[2017])} människor/km^2"
+        return f"Kommunen {self.namn} har id {self.id} och har som senast totalt {self.data['2023M01']['total']} människor som bodde i kommunen. Snittåldern är {round(self.snittÅlder)} år, samt hade år 2017 en befolkningstäthet på: {round(self.befolkningstätheter[2017])} människor/km^2. Det bor {self.utrikesfödda[2022]} utrikesfödda i kommunen."

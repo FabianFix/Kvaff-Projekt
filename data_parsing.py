@@ -77,6 +77,31 @@ class DataParser:
             kommun.sättInBefolkningsTäthet(befolkningsTätheter[kommun.namn])
             self.kommuner.append(kommun)
 
+        with open("information-files/befolkningsdata/Utrikesfödda.csv", "r", encoding="utf-8") as utrikesFil:
+            utrikesRader = utrikesFil.readlines()[2:]
+        
+        utrikesRaderSeparerade = [utrikesRad.split(";")[2:] for utrikesRad in utrikesRader]
+
+        år = 2014
+        ålder = 0
+
+        for utrikesRadSeparerad in utrikesRaderSeparerade:
+            if ålder > 8:
+                ålder = 0
+                år += 1
+
+            index = 0
+            nuvarandeKommunIndex = 0
+            for kommunData in utrikesRadSeparerad:
+                if index == 2:
+                    index = 0
+                    nuvarandeKommunIndex += 1
+
+                self.kommuner[nuvarandeKommunIndex].sättUtrikesfödda(år, int(kommunData))
+
+                index += 1
+
+            ålder += 1
 
 
     def laddaBankomater(self): 
