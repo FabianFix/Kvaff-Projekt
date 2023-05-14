@@ -77,6 +77,14 @@ class DataParser:
             kommun.sättInBefolkningsTäthet(befolkningsTätheter[kommun.namn])
             self.kommuner.append(kommun)
 
+        with open("information-files/befolkningsdata/Kommunyta.csv", "r", encoding="utf-8") as areaFil:
+            areaRader = areaFil.readlines()
+
+        areor = [float(areaRad.split(";")[1]) for areaRad in areaRader]
+
+        for index, kommun in enumerate(self.kommuner):
+            kommun.sättArea(areor[index])
+
         with open("information-files/befolkningsdata/Utrikesfödda.csv", "r", encoding="utf-8") as utrikesFil:
             utrikesRader = utrikesFil.readlines()[2:]
         
@@ -141,4 +149,5 @@ class DataParser:
         else: 
             self.bankomater[index-1].beräknaGenomsnittligOmsättning()
             self.bankomater[index].beräknaGenomsnittligOmsättning()
+
         

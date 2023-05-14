@@ -21,6 +21,12 @@ class Kommun:
             2022: 0
         }
 
+    def beräknaBankomatTäthet(self):
+        self.bankomatTäthet = self.area / self.antalBankomater
+
+    def sättArea(self, area:float): 
+        self.area = area
+
     def beräknaSnittålder(self):
         self.sistaNyckeln = list(self.data.keys())[-1]
         self.sistaVärdet = list(self.data.values())[-1]

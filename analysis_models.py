@@ -40,9 +40,6 @@ class AnalysModeller:
         plt.xlabel("månad")
         plt.legend(["Omsättning i tkr", "Antal invånare per bankomat"])
 
-    def beräknaSnittBefolkningPerBankomat(self): 
-        pass
-
     def scatterPlotOmsättningPerInvånare(self):
         
         omsättningar:list[int] = []
@@ -67,7 +64,8 @@ class AnalysModeller:
 
         for kommun in self.data.kommuner:
             kommun.antalBankomater = len([bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["kommun"] == kommun.namn])
-
+            kommun.beräknaBankomatTäthet()
+            
         for bankomat in self.data.bankomater:
             try:
                 omsättningar.append(bankomat.genomsnittligOmsättning / 1000)
@@ -127,5 +125,3 @@ class AnalysModeller:
         plt.title("Scatter plot av omsättning / befolkningstäthet")
         plt.xlabel("Omsättning Per Invånare")
         plt.ylabel("Befolkningstäthet i människor / km^2")
-        
-            
