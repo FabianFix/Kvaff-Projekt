@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 class Bankomat: 
     def __init__(self, automatId: str, address: str, postkod: str, postort: str, kommun: str, län: str, ärUte: bool) -> None:
         
@@ -15,6 +18,7 @@ class Bankomat:
         self.transaktionsDataSEK: list[dict] = []
         self.transaktionsDataEUR: list[dict] = []
         self.transaktionsDataUSD: list[dict] = []
+        self.omsättningPerMånad = defaultdict(int)
 
     def __str__(self) -> str:
         return f"Bankomat med id {self.id}, som finns på addressen {self.geographicalData['address']}, i {self.geographicalData['kommun']} kommun. Det finns {len(self.transaktionsDataSEK) + len(self.transaktionsDataUSD) + len(self.transaktionsDataEUR)} transaktionsadata registrerade. ÄrUte = {self.ärUte}"
@@ -40,6 +44,9 @@ class Bankomat:
                 "antalTransaktioner": antalTransaktioner,
                 "omsättning": omsättning
             })
+        
+        if self.omsättningPerMånad[månad[0:4] + "M" + månad[4:]]: self.omsättningPerMånad[månad[0:4] + "M" + månad[4:]] += omsättning
+        else: self.omsättningPerMånad[månad[0:4] + "M" + månad[4:]] = omsättning
 
     def beräknaGenomsnittligOmsättning(self): 
         self.totalOmsättning = 0

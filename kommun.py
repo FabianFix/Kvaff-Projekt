@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 class Kommun: 
     def __init__(self, namn: str, id: str, data: dict[str: dict[str: int]]) -> None:
         self.namn = namn
@@ -5,6 +8,7 @@ class Kommun:
         self.data = data
         self.antalBankomater = 0
         self.totalOmsättning = 0
+        self.totalOmsättningPerMånad = defaultdict(int)
         self.omsättningPerBankomat = 0
         self.omsättningPerInvånare = 0
         self.snittTransaktionsAntal = 0

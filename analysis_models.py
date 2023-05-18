@@ -65,7 +65,7 @@ class AnalysModeller:
         for kommun in self.data.kommuner:
             kommun.antalBankomater = len([bankomat for bankomat in self.data.bankomater if bankomat.geographicalData["kommun"] == kommun.namn])
             kommun.beräknaBankomatTäthet()
-            
+
         for bankomat in self.data.bankomater:
             try:
                 omsättningar.append(bankomat.genomsnittligOmsättning / 1000)
@@ -88,7 +88,10 @@ class AnalysModeller:
                 bankomat.beräknaGenomsnittligtTransaktionsantal()
                 kommun.totalOmsättning += bankomat.genomsnittligOmsättning
                 kommun.totalTransaktionsAntal += bankomat.genomsnittligaTransaktioner
-            
+                for month in bankomat.omsättningPerMånad.keys():
+                    if kommun.totalOmsättningPerMånad[month]:
+                        kommun.totalOmsättningPerMånad[month] += bankomat.omsättningPerMånad[month]
+                    else: kommun.totalOmsättningPerMånad[month] = bankomat.omsättningPerMånad[month]
             try:
                 kommun.omsättningPerBankomat = kommun.totalOmsättning / kommun.antalBankomater
                 kommun.snittTransaktionsAntal = kommun.totalTransaktionsAntal / kommun.antalBankomater
